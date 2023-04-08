@@ -1,0 +1,30 @@
+node{
+  stage('CodeCheckout'){
+    sh "echo running ebay nodeJS project" 
+    git 'https://github.com/ifegodfey/nodejs-application'
+  }
+  stage('UnitTest'){
+    sh "echo test successful"
+    //sh "npm test"
+  }
+  stage('Build'){
+    sh "echo creating build artifacts"
+        sh "npm install"
+    }
+  stage('Code Quality Analysis'){
+    sh "echo CodeQualityReport"
+        //sh "npm run sonar"
+    }
+    stage('UploadArtifacts'){
+    sh "echo npm packages uploaded"
+        //sh 'npm publish'
+        // Jenkins nexus intergration 
+        // password = admin123  username = admin 
+        // echo -n 'admin:admin123' | openssl base64
+    }
+  stage('Deployment'){
+    sh "echo Deploying applications"
+        sh "npm start"
+    }
+  }
+
